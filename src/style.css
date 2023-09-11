@@ -1,3 +1,83 @@
+:root {
+  --area: 90px;
+  --board-area: calc(var(--area) * var(--area));
+  /* --board-width: calc(var(--board-area) * 9px); */
+  /* --board-height: calc(var(--board-area) * 9px); */
+}
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.chessboard {
+  width: calc(var(--area) * 8);
+  height: calc(var(--area) * 8);
+  display: grid;
+  grid-template: repeat(8, 1fr) / repeat(8, 1fr);
+  border: 1px solid black;
+}
+
+.square {
+  width: 100%;
+  height: 100%;
+}
+
+.square:nth-child(odd) {
+  background-color: beige;
+}
+
+.square:nth-child(even) {
+  background-color: black;
+}
+
+.square:nth-child(n + 9):nth-child(even) {
+  background-color: beige;
+}
+.square:nth-child(n + 9):nth-child(odd) {
+  background-color: black;
+}
+
+.square:nth-child(n + 17):nth-child(odd) {
+  background-color: beige;
+}
+.square:nth-child(n + 17):nth-child(even) {
+  background-color: black;
+}
+
+.square:nth-child(n + 25):nth-child(even) {
+  background-color: beige;
+}
+.square:nth-child(n + 25):nth-child(odd) {
+  background-color: black;
+}
+
+.square:nth-child(n + 33):nth-child(odd) {
+  background-color: beige;
+}
+.square:nth-child(n + 33):nth-child(even) {
+  background-color: black;
+}
+
+.square:nth-child(n + 41):nth-child(even) {
+  background-color: beige;
+}
+.square:nth-child(n + 41):nth-child(odd) {
+  background-color: black;
+}
+
+.square:nth-child(n + 49):nth-child(odd) {
+  background-color: beige;
+}
+.square:nth-child(n + 49):nth-child(even) {
+  background-color: black;
+}
+
+.square:nth-child(n + 57):nth-child(even) {
+  background-color: beige;
+}
+.square:nth-child(n + 57):nth-child(odd) {
   background-color: black;
 }
