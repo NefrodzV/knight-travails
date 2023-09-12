@@ -1,8 +1,5 @@
 :root {
   --area: 90px;
-  --board-area: calc(var(--area) * var(--area));
-  /* --board-width: calc(var(--board-area) * 9px); */
-  /* --board-height: calc(var(--board-area) * 9px); */
 }
 body {
   font-family: "Lucida Console", "Courier New", monospace;
@@ -21,6 +18,30 @@ body {
   display: grid;
   grid-template: repeat(8, 1fr) / repeat(8, 1fr);
   border: 1px solid black;
+}
+.number-coordinate {
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: -25px;
+  transform: translate(0, -50%);
+}
+
+.letter-coordinate {
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 50%;
+  bottom: -40px;
+  transform: translate(-50%, 0);
+}
+
+.chess-piece {
+  width: 80%;
+  height: 80%;
 }
 
 .square {
@@ -83,4 +104,10 @@ body {
 }
 .square:nth-child(n + 57):nth-child(odd) {
   background-color: black;
+}
+.square:nth-child(8n + 1) {
+  position: relative;
+}
+.square:nth-child(n + 57) {
+  position: relative;
 }
