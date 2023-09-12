@@ -5,6 +5,7 @@
   /* --board-height: calc(var(--board-area) * 9px); */
 }
 body {
+  margin: 0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -12,6 +13,7 @@ body {
   align-items: center;
 }
 
+/* CSS FOR THE BOARD */
 .chessboard {
   width: calc(var(--area) * 8);
   height: calc(var(--area) * 8);
