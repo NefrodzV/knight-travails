@@ -5,6 +5,7 @@
   /* --board-height: calc(var(--board-area) * 9px); */
 }
 body {
+  font-family: "Lucida Console", "Courier New", monospace;
   margin: 0;
   display: flex;
   flex-direction: column;
