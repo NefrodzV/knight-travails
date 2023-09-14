@@ -116,7 +116,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\nconsole.log(\"Hello webpack\")\n\n\n//# sourceURL=webpack://knight-travails/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\nconsole.log(\"Hello webpack\")\n\n/** TODO:\n * Need a hashmap top store the values of node and their directions\n * For example: a1 has address 0 in array, a2, a3 in the board\n * Then create an array containing the address in the hasp pertaining to the array that will\n * store the the connections of the nodes\n * Next create the node class to save the\n */\n\nconst connections = new Array(64)\nconsole.log(connections)\n\nconst squaresMap = new Map()\n\n\n//# sourceURL=webpack://knight-travails/./src/index.js?");
 
 /***/ })
 
