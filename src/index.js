@@ -1,15 +1,27 @@
 import "./style.css"
+import {
+  isBottomEdgeSquare,
+  isRightEdgeSquare,
+  isUpperEdgeSquare,
+} from "./utils"
+import { knightGraph } from "./knightGraph"
+import { chessMap } from "./chessMap"
 console.log("Hello webpack")
+// chessboardGraph.printGraph()
+// console.log(squaresMap.get(0).data)
+// chessboardGraph.knightbfs(squaresMap.get(0), squaresMap.get(10))
+// chessboardGraph.bfs(squaresMap.get(0))
+// console.log(chessboardGraph)
 
-/** TODO:
- * Need a hashmap top store the values of node and their directions
- * For example: a1 has address 0 in array, a2, a3 in the board
- * Then create an array containing the address in the hasp pertaining to the array that will
- * store the the connections of the nodes
- * Next create the node class to save the
- */
+// knightGraph.printGraph()
+console.log(chessMap)
 
-const connections = new Array(64)
-console.log(connections)
-
-const squaresMap = new Map()
+// const symbols = ["a", "b,", "c", "d", "e", "f", "g", "h"]
+//
+// for (let x = 0; x < 8; x++) {
+//   console.log(`${symbols[x]}${x + 1}`)
+//   for (let y = 0; y < 8; y++) {
+//     console.log(`${x}${y}`)
+//     console.log(`x:${x} y:${y}`)
+//   }
+// }
