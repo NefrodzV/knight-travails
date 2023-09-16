@@ -1,47 +1,39 @@
-const isBottomEdgeSquare = (index) => {
-  if (
-    index === 0 ||
-    index === 8 ||
-    index === 16 ||
-    index === 24 ||
-    index === 32 ||
-    index === 40 ||
-    index === 48 ||
-    index === 56
-  )
-    return true
+/** Depdeing on the node x, y coordinate it calculates the viable squares that a knight will jump
+ * The board is presented as a cartesian plane with x , y coordinates
+ */
+const getViableKnightMoves = (node) => {
+  const moves = [
+    [2, 1],
+    [2, -1],
+    [-2, 1],
+    [-2, -1],
+    [1, 2],
+    [-1, 2],
+    [1, -2],
+    [-1, -2],
+  ]
 
-  return false
+  // Has to be more than this
+  const bottomLimit = -1
+  // Has to be lower than this
+  const upperLimit = 8
+
+  const viable = []
+  for (let i = 0; i < moves.length; i++) {
+    const sumOfX = moves[i][0] + node.x
+    const sumOfY = moves[i][1] + node.y
+
+    if (
+      sumOfX > bottomLimit &&
+      sumOfX < upperLimit &&
+      sumOfY > bottomLimit &&
+      sumOfY < upperLimit
+    ) {
+      console.log("coordinates viable:" + sumOfX + "," + sumOfY + "index:" + i)
+      viable.push(`${sumOfX}${sumOfY}`)
+    }
+  }
+
+  return viable
 }
-
-const isRightEdgeSquare = (index) => {
-  if (
-    index === 56 ||
-    index === 57 ||
-    index === 58 ||
-    index === 59 ||
-    index === 60 ||
-    index === 61 ||
-    index === 62 ||
-    index === 63
-  )
-    return true
-
-  return false
-}
-
-const isUpperEdgeSquare = (index) => {
-  if (
-    index === 7 ||
-    index === 15 ||
-    index === 23 ||
-    index === 31 ||
-    index === 39 ||
-    index === 47 ||
-    index === 55
-  )
-    return true
-
-  return false
-}
-export { isBottomEdgeSquare, isRightEdgeSquare, isUpperEdgeSquare }
+export { getViableKnightMoves }
