@@ -1,5 +1,7 @@
 // A graph implemented as a adjacency list
 
+import { chessMap } from "./chessMap"
+
 export default class Graph {
   constructor(v) {
     // Number of vertices in the graph
@@ -10,16 +12,20 @@ export default class Graph {
   // Instead of array we can use a linked list
   // V is the name of the key in the adjacency list
   addVertex(v) {
-    this.adjacencyList.set(v, [])
+    this.adjacencyList.set(v, new Set())
   }
 
   addEdge(v, w) {
-    // const squareV = squaresMap.get(v)
-    // const squareW = squaresMap.get(w)
-    this.adjacencyList.get(v).push(w)
+    const nodeV = chessMap.get(v)
+    const nodeW = chessMap.get(w)
+    // console.log(v)
+    // console.log(w)
+    // console.log(nodeV)
+    // console.log(nodeW)
+    this.adjacencyList.get(v).add(nodeW)
 
     // Since the graph is sparse or undirected we can push the other
-    this.adjacencyList.get(w).push(v)
+    this.adjacencyList.get(w).add(nodeV)
   }
 
   traverse(start, end) {}
