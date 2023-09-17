@@ -29,7 +29,7 @@ const getViableKnightMoves = (node) => {
       sumOfY > bottomLimit &&
       sumOfY < upperLimit
     ) {
-      console.log("coordinates viable:" + sumOfX + "," + sumOfY + "index:" + i)
+      // console.log("coordinates viable:" + sumOfX + "," + sumOfY + "index:" + i)
       viable.push(`${sumOfX}${sumOfY}`)
     }
   }
