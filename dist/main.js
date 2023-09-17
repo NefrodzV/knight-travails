@@ -110,13 +110,63 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
+/***/ "./src/Graph.js":
+/*!**********************!*\
+  !*** ./src/Graph.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Graph)\n/* harmony export */ });\n/* harmony import */ var _chessMap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chessMap */ \"./src/chessMap.js\");\n// A graph implemented as a adjacency list\n\n\n\nclass Graph {\n  constructor(v) {\n    // Number of vertices in the graph\n    this.vertices = v\n    this.adjacencyList = new Map()\n  }\n\n  // Instead of array we can use a linked list\n  // V is the name of the key in the adjacency list\n  addVertex(v) {\n    this.adjacencyList.set(v, new Set())\n  }\n\n  addEdge(v, w) {\n    const nodeV = _chessMap__WEBPACK_IMPORTED_MODULE_0__.chessMap.get(v)\n    const nodeW = _chessMap__WEBPACK_IMPORTED_MODULE_0__.chessMap.get(w)\n    // console.log(v)\n    // console.log(w)\n    // console.log(nodeV)\n    // console.log(nodeW)\n    this.adjacencyList.get(v).add(nodeW)\n\n    // Since the graph is sparse or undirected we can push the other\n    this.adjacencyList.get(w).add(nodeV)\n  }\n\n  traverse(start, end) {}\n\n  knightbfs(start, end) {\n    // console.log(start)\n    // console.log(end)\n    const q = []\n    q.push(start)\n\n    const node = q.splice(0, 1)[0]\n\n    const adjacents = this.adjacencyList.get(node.data.number)\n    // console.log(adjacents)\n    const possibleMovesInX = [-1, -1, 1, 1, -2, -2, 2, 2]\n\n    for (let i = 0; i < adjacents.length; i++) {\n      for (let j = 0; j < possibleMovesInX; j++) {\n        if (node.data.x + possibleMovesInX[i] === adjacents[i].data.x) {\n          console.log(\"one found\")\n        }\n      }\n    }\n\n    // if (node.data.x + possibleMovesInX[2] === adjacents[2].data.x) {\n    //   possibleMovesInX[2] = 0\n    //   console.log(possibleMovesInX)\n    //   console.log(adjacents[2])\n    // }\n\n    // while(q.length !== 0) {\n    //   const node = q.splice(0, 1)\n    //   const adjacent = this.adjacencyList.get(node)\n    // }\n    //\n\n    //     const possibleMovesInY = [2, -2, 2, -2, -1, 1, 1, -1]\n    //     const node = q.slice(0, 1)[0]\n    //     const neighbours = this.adjacencyList.get(node.data.number)\n  }\n  // Does bfs one by one\n  bfs(start) {\n    // console.log(start.data)\n    const q = []\n    q.push(start)\n\n    const visited = new Array(this.vertices - 1)\n    console.log(visited)\n    visited[start.data.number] = true\n    const prev = new Array(this.vertices - 1)\n    while (q.length !== 0) {\n      const node = q.splice(0, 1)\n      console.log(\"node visited\")\n      console.log(node[0].data.number)\n      const neighbours = this.adjacencyList.get(node[0].data.number)\n\n      for (let i = 0; i < neighbours.length; i++) {\n        if (!visited[neighbours[i].data.number]) {\n          q.push(neighbours[i])\n          visited[neighbours[i].data.number] = true\n          prev[neighbours[i].data.number] = node\n        }\n      }\n    }\n    console.log(\"previous\")\n    console.log(visited)\n    console.log(prev)\n    return prev\n  }\n\n  printGraph() {\n    // get all the vertices\n    var get_keys = this.adjacencyList.keys()\n\n    // iterate over the vertices\n    for (var i of get_keys) {\n      // get the corresponding adjacency list\n      // for the vertex\n      var get_values = this.adjacencyList.get(i)\n      var conc = \"\"\n\n      // iterate over the adjacency list\n      // concatenate the values into a string\n      for (var j of get_values) conc += j.data.symbol + \" \"\n\n      // print the vertex and its adjacency list\n      console.log(i + \" -> \" + conc)\n    }\n  }\n}\n\n\n//# sourceURL=webpack://knight-travails/./src/Graph.js?");
+
+/***/ }),
+
+/***/ "./src/Node.js":
+/*!*********************!*\
+  !*** ./src/Node.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Node)\n/* harmony export */ });\nclass Node {\n  constructor(x, y, symbol) {\n    this.x = x\n    this.y = y\n    this.symbol = symbol\n  }\n}\n\n\n//# sourceURL=webpack://knight-travails/./src/Node.js?");
+
+/***/ }),
+
+/***/ "./src/chessMap.js":
+/*!*************************!*\
+  !*** ./src/chessMap.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   chessMap: () => (/* binding */ chessMap)\n/* harmony export */ });\n/* harmony import */ var _Node__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Node */ \"./src/Node.js\");\n\n\nconst chessMap = new Map()\n\n// Generates the data for the chess map\nconst symbols = [\"a\", \"b\", \"c\", \"d\", \"e\", \"f\", \"g\", \"h\"]\nfor (let x = 0; x < 8; x++) {\n  for (let y = 0; y < 8; y++) {\n    const symbol = `${symbols[x]}${y + 1}`\n    const key = `${x}${y}`\n    chessMap.set(key, new _Node__WEBPACK_IMPORTED_MODULE_0__[\"default\"](x, y, symbol))\n  }\n}\n\n\n\n\n//# sourceURL=webpack://knight-travails/./src/chessMap.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\nconsole.log(\"Hello webpack\")\n\n/** TODO:\n * Need a hashmap top store the values of node and their directions\n * For example: a1 has address 0 in array, a2, a3 in the board\n * Then create an array containing the address in the hasp pertaining to the array that will\n * store the the connections of the nodes\n * Next create the node class to save the\n */\n\nconst connections = new Array(64)\nconsole.log(connections)\n\nconst squaresMap = new Map()\n\n\n//# sourceURL=webpack://knight-travails/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ \"./src/utils.js\");\n/* harmony import */ var _knightGraph__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./knightGraph */ \"./src/knightGraph.js\");\n/* harmony import */ var _chessMap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./chessMap */ \"./src/chessMap.js\");\n\n\n\n\nconsole.log(\"Hello webpack\")\n// console.log(chessMap)\n// const arr = getViableKnightMoves(chessMap.get(\"00\"))\n//\n// console.log(chessMap.get(arr[0]))\n// console.log(chessMap.get(arr[1]))\n\n\n//# sourceURL=webpack://knight-travails/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/knightGraph.js":
+/*!****************************!*\
+  !*** ./src/knightGraph.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   knightGraph: () => (/* binding */ knightGraph)\n/* harmony export */ });\n/* harmony import */ var _Graph__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Graph */ \"./src/Graph.js\");\n/* harmony import */ var _chessMap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chessMap */ \"./src/chessMap.js\");\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ \"./src/utils.js\");\n\n\n\n\nconst SQUARES = 64\nconst knightGraph = new _Graph__WEBPACK_IMPORTED_MODULE_0__[\"default\"](SQUARES)\n\nfor (let x = 0; x < 8; x++) {\n  for (let y = 0; y < 8; y++) {\n    const vertexKey = `${x}${y}`\n    knightGraph.addVertex(vertexKey)\n  }\n}\n\n// Making the graph for knight\nfor (let x = 0; x < 8; x++) {\n  for (let y = 0; y < 8; y++) {\n    const key = `${x}${y}`\n    const currentNode = _chessMap__WEBPACK_IMPORTED_MODULE_1__.chessMap.get(key)\n    const arr = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.getViableKnightMoves)(currentNode)\n    for (let i = 0; i < arr.length; i++) {\n      knightGraph.addEdge(key, arr[i])\n    }\n  }\n}\n\nconsole.log(knightGraph.adjacencyList)\n\n\n\n//# sourceURL=webpack://knight-travails/./src/knightGraph.js?");
+
+/***/ }),
+
+/***/ "./src/utils.js":
+/*!**********************!*\
+  !*** ./src/utils.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   getViableKnightMoves: () => (/* binding */ getViableKnightMoves)\n/* harmony export */ });\n/** Depdeing on the node x, y coordinate it calculates the viable squares that a knight will jump\n * The board is presented as a cartesian plane with x , y coordinates\n */\nconst getViableKnightMoves = (node) => {\n  const moves = [\n    [2, 1],\n    [2, -1],\n    [-2, 1],\n    [-2, -1],\n    [1, 2],\n    [-1, 2],\n    [1, -2],\n    [-1, -2],\n  ]\n\n  // Has to be more than this\n  const bottomLimit = -1\n  // Has to be lower than this\n  const upperLimit = 8\n\n  const viable = []\n  for (let i = 0; i < moves.length; i++) {\n    const sumOfX = moves[i][0] + node.x\n    const sumOfY = moves[i][1] + node.y\n\n    if (\n      sumOfX > bottomLimit &&\n      sumOfX < upperLimit &&\n      sumOfY > bottomLimit &&\n      sumOfY < upperLimit\n    ) {\n      // console.log(\"coordinates viable:\" + sumOfX + \",\" + sumOfY + \"index:\" + i)\n      viable.push(`${sumOfX}${sumOfY}`)\n    }\n  }\n\n  return viable\n}\n\n\n\n//# sourceURL=webpack://knight-travails/./src/utils.js?");
 
 /***/ })
 
