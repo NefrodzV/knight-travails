@@ -28,72 +28,43 @@ export default class Graph {
     this.adjacencyList.get(w).add(nodeV)
   }
 
-  traverse(start, end) {}
-
-  knightbfs(start, end) {
-    // console.log(start)
-    // console.log(end)
+  bfs(start, end) {
     const q = []
     q.push(start)
 
-    const node = q.splice(0, 1)[0]
+    let found = false
+    const visited = new Array(this.vertices)
+    visited[start.index] = true
 
-    const adjacents = this.adjacencyList.get(node.data.number)
-    // console.log(adjacents)
-    const possibleMovesInX = [-1, -1, 1, 1, -2, -2, 2, 2]
+    const prev = new Array(this.vertices)
+    prev[start.index] = start
+    while (q.length !== 0 && !found) {
+      const node = q.splice(0, 1)[0]
+      const adjacents = this.adjacencyList.get(node.key)
 
-    for (let i = 0; i < adjacents.length; i++) {
-      for (let j = 0; j < possibleMovesInX; j++) {
-        if (node.data.x + possibleMovesInX[i] === adjacents[i].data.x) {
-          console.log("one found")
+      for (const adjacent of adjacents) {
+        if (adjacent.key === end.key) {
+          prev[adjacent.index] = { previous: node, child: adjacent }
+          found = true
+          break
+        }
+        if (!visited[adjacent.index]) {
+          visited[adjacent.index] = true
+          q.push(adjacent)
+          prev[adjacent.index] = { previous: node, child: adjacent }
         }
       }
     }
 
-    // if (node.data.x + possibleMovesInX[2] === adjacents[2].data.x) {
-    //   possibleMovesInX[2] = 0
-    //   console.log(possibleMovesInX)
-    //   console.log(adjacents[2])
-    // }
-
-    // while(q.length !== 0) {
-    //   const node = q.splice(0, 1)
-    //   const adjacent = this.adjacencyList.get(node)
-    // }
-    //
-
-    //     const possibleMovesInY = [2, -2, 2, -2, -1, 1, 1, -1]
-    //     const node = q.slice(0, 1)[0]
-    //     const neighbours = this.adjacencyList.get(node.data.number)
-  }
-  // Does bfs one by one
-  bfs(start) {
-    // console.log(start.data)
-    const q = []
-    q.push(start)
-
-    const visited = new Array(this.vertices - 1)
-    console.log(visited)
-    visited[start.data.number] = true
-    const prev = new Array(this.vertices - 1)
-    while (q.length !== 0) {
-      const node = q.splice(0, 1)
-      console.log("node visited")
-      console.log(node[0].data.number)
-      const neighbours = this.adjacencyList.get(node[0].data.number)
-
-      for (let i = 0; i < neighbours.length; i++) {
-        if (!visited[neighbours[i].data.number]) {
-          q.push(neighbours[i])
-          visited[neighbours[i].data.number] = true
-          prev[neighbours[i].data.number] = node
-        }
-      }
-    }
-    console.log("previous")
-    console.log(visited)
     console.log(prev)
+
     return prev
+  }
+
+  reconstruct(start, end, prev) {
+    const path = []
+    let previousAdded
+    for (let i = prev.length - 1; i >= 0; i--) {}
   }
 
   printGraph() {
@@ -109,7 +80,7 @@ export default class Graph {
 
       // iterate over the adjacency list
       // concatenate the values into a string
-      for (var j of get_values) conc += j.data.symbol + " "
+      for (var j of get_values) conc += j.key + " "
 
       // print the vertex and its adjacency list
       console.log(i + " -> " + conc)
