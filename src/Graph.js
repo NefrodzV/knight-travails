@@ -28,6 +28,10 @@ export default class Graph {
     this.adjacencyList.get(w).add(nodeV)
   }
 
+  shortestPath(start, end) {
+    const prev = this.bfs(start, end)
+    const path = this.reconstruct(start, end, prev)
+  }
   bfs(start, end) {
     const q = []
     q.push(start)
@@ -43,11 +47,12 @@ export default class Graph {
       const adjacents = this.adjacencyList.get(node.key)
 
       for (const adjacent of adjacents) {
-        if (adjacent.key === end.key) {
-          prev[adjacent.index] = { previous: node, child: adjacent }
-          found = true
-          break
-        }
+        // if (adjacent.key === end.key) {
+        //   console.log(adjacent)
+        //   prev[adjacent.index] = { previous: node, child: adjacent }
+        //   found = true
+        //   break
+        // }
         if (!visited[adjacent.index]) {
           visited[adjacent.index] = true
           q.push(adjacent)
@@ -58,13 +63,36 @@ export default class Graph {
 
     console.log(prev)
 
-    return prev
+    //getting rid of null values
+    return prev.filter((value) => value != null)
   }
 
   reconstruct(start, end, prev) {
+    console.log("prev passed")
+    console.log(prev)
     const path = []
-    let previousAdded
-    for (let i = prev.length - 1; i >= 0; i--) {}
+    path.push(end)
+
+    // path.push(prev[prev.length - 1].previous)
+    const last = path[path.length - 1]
+    console.log(last.key)
+
+    let pathfound = false
+    let lastIndex = false
+    for (let i = prev.length - 1; i >= 0; i--) {
+      const last = path[path.length - 1]
+      const node = prev[i]
+      if (node.key === start.key) {
+        path.push(node)
+        break
+      }
+      if (node.child.key === last.key) {
+        path.push(node.previous)
+      }
+    }
+
+    console.log("shortest path")
+    console.log(path)
   }
 
   printGraph() {
