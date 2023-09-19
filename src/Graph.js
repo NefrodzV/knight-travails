@@ -30,14 +30,14 @@ export default class Graph {
 
   shortestPath(start, end) {
     const prev = this.bfs(start, end)
-    console.log(prev)
-    // const path = this.reconstruct(start, end, prev)
+    // console.log(prev)
+    const path = this.reconstruct(start, end, prev)
   }
   bfs(start, end) {
     const q = []
     q.push(start)
 
-    console.log(end)
+    // console.log(end)
     let found = false
     const visited = new Array(this.vertices)
     visited[start.index] = true
@@ -48,20 +48,9 @@ export default class Graph {
       const node = q.splice(0, 1)[0]
       const adjacents = this.adjacencyList.get(node.key)
       if (node.key === end.key) {
-        console.log("found")
-        console.log(node)
         found = true
-        console.log(found)
-
-        break
       }
       for (const adjacent of adjacents) {
-        // if (adjacent.key === end.key) {
-        //   console.log(adjacent)
-        //   prev[adjacent.index] = { previous: node, child: adjacent }
-        //   found = true
-        //   break
-        // }
         if (!visited[adjacent.index]) {
           visited[adjacent.index] = true
           q.push(adjacent)
@@ -69,38 +58,28 @@ export default class Graph {
         }
       }
     }
-
-    console.log(prev)
-
-    //getting rid of null values
-    return prev.filter((value) => value != null)
+    return prev
   }
 
   reconstruct(start, end, prev) {
+    let current = prev[end.index]
     const path = []
-    path.push(end)
-    for (let i = prev.length - 1; i >= 0; i--) {
-      const last = path[path.length - 1]
-      const node = prev[i]
-      if (last.key === start.key) {
-        break
-      }
-      console.log(node)
-      if (node.child === undefined && last.key !== start.key) {
-        i = prev.length - 1
-        continue
-      }
-      if (node.child.key === last.key) {
-        console.log(
-          "found child key " + node.child.key + " last added key" + last.key
-        )
-
-        path.push(node.previous)
-      }
+    path.push(current.child)
+    let steps = 0
+    while (current.previous !== undefined) {
+      steps++
+      path.push(current.previous)
+      current = prev[current.previous.index]
     }
 
-    console.log("shortest path")
-    console.log(path)
+    path.reverse()
+    console.log(`Start: ${start.symbol} (x:${start.x}, y:${start.y})`)
+    console.log(`End: ${end.symbol} (x:${end.x}, y:${end.y})`)
+    console.log("Moves: " + steps)
+    console.log("Path:")
+    path.forEach((node) => {
+      console.log(`${node.symbol} => (x:${node.x}, y:${node.y})`)
+    })
   }
 
   printGraph() {
