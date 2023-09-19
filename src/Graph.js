@@ -30,12 +30,14 @@ export default class Graph {
 
   shortestPath(start, end) {
     const prev = this.bfs(start, end)
-    const path = this.reconstruct(start, end, prev)
+    console.log(prev)
+    // const path = this.reconstruct(start, end, prev)
   }
   bfs(start, end) {
     const q = []
     q.push(start)
 
+    console.log(end)
     let found = false
     const visited = new Array(this.vertices)
     visited[start.index] = true
@@ -45,7 +47,14 @@ export default class Graph {
     while (q.length !== 0 && !found) {
       const node = q.splice(0, 1)[0]
       const adjacents = this.adjacencyList.get(node.key)
+      if (node.key === end.key) {
+        console.log("found")
+        console.log(node)
+        found = true
+        console.log(found)
 
+        break
+      }
       for (const adjacent of adjacents) {
         // if (adjacent.key === end.key) {
         //   console.log(adjacent)
@@ -68,25 +77,24 @@ export default class Graph {
   }
 
   reconstruct(start, end, prev) {
-    console.log("prev passed")
-    console.log(prev)
     const path = []
     path.push(end)
-
-    // path.push(prev[prev.length - 1].previous)
-    const last = path[path.length - 1]
-    console.log(last.key)
-
-    let pathfound = false
-    let lastIndex = false
     for (let i = prev.length - 1; i >= 0; i--) {
       const last = path[path.length - 1]
       const node = prev[i]
-      if (node.key === start.key) {
-        path.push(node)
+      if (last.key === start.key) {
         break
       }
+      console.log(node)
+      if (node.child === undefined && last.key !== start.key) {
+        i = prev.length - 1
+        continue
+      }
       if (node.child.key === last.key) {
+        console.log(
+          "found child key " + node.child.key + " last added key" + last.key
+        )
+
         path.push(node.previous)
       }
     }
