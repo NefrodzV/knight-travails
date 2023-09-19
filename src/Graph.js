@@ -9,8 +9,6 @@ export default class Graph {
     this.adjacencyList = new Map()
   }
 
-  // Instead of array we can use a linked list
-  // V is the name of the key in the adjacency list
   addVertex(v) {
     this.adjacencyList.set(v, new Set())
   }
@@ -18,10 +16,6 @@ export default class Graph {
   addEdge(v, w) {
     const nodeV = chessMap.get(v)
     const nodeW = chessMap.get(w)
-    // console.log(v)
-    // console.log(w)
-    // console.log(nodeV)
-    // console.log(nodeW)
     this.adjacencyList.get(v).add(nodeW)
 
     // Since the graph is sparse or undirected we can push the other
@@ -30,14 +24,13 @@ export default class Graph {
 
   shortestPath(start, end) {
     const prev = this.bfs(start, end)
-    // console.log(prev)
+
     const path = this.reconstruct(start, end, prev)
   }
   bfs(start, end) {
     const q = []
     q.push(start)
 
-    // console.log(end)
     let found = false
     const visited = new Array(this.vertices)
     visited[start.index] = true
