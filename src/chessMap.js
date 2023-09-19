@@ -11,5 +11,10 @@ for (let x = 0; x < 8; x++) {
     chessMap.set(key, new Node(x, y, symbol))
   }
 }
+let index = 0
+chessMap.forEach((element) => {
+  element.index = index
+  index++
+})
 
 export { chessMap }
