@@ -23,6 +23,6 @@ for (let x = 0; x < 8; x++) {
     }
   }
 }
-
-console.log(knightGraph.adjacencyList)
+// Finding the shortest path
+knightGraph.shortestPath(chessMap.get("33"), chessMap.get("43"))
 export { knightGraph }
