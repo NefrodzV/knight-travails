@@ -3,5 +3,7 @@ export default class Node {
     this.x = x
     this.y = y
     this.symbol = symbol
+    this.key = `${x}${y}`
+    this.index
   }
 }
